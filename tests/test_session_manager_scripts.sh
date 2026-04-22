@@ -21,7 +21,8 @@ wait_for_session() {
 
 cleanup() {
 	tmux -L "$SOCKET" kill-server >/dev/null 2>&1 || true
-	rm -rf "$RESURRECT_DIR" "$FAKEBIN"
+	rm -f "$HOME/resurrect-session-manager-test"
+	rm -rf "$RESURRECT_ROOT" "$FAKEBIN"
 }
 
 assert_file_contains() {
@@ -31,7 +32,8 @@ assert_file_contains() {
 }
 
 SOCKET="resurrect-session-manager-$$"
-RESURRECT_DIR="$(mktemp -d)"
+RESURRECT_ROOT="$(mktemp -d)"
+RESURRECT_DIR="$RESURRECT_ROOT/resurrect"
 FAKEBIN="$(mktemp -d)"
 trap cleanup EXIT
 
@@ -43,7 +45,8 @@ chmod +x "$FAKEBIN/fzf"
 
 tmux -L "$SOCKET" -f /dev/null new-session -d -s red -c /tmp
 tmux -L "$SOCKET" new-session -d -s blue -c /tmp
-tmux -L "$SOCKET" set-option -g @resurrect-dir "$RESURRECT_DIR"
+tmux -L "$SOCKET" set-option -g @resurrect-dir '~/resurrect-session-manager-test'
+ln -s "$RESURRECT_DIR" "$HOME/resurrect-session-manager-test"
 tmux -L "$SOCKET" set-option -g @resurrect-capture-pane-contents off
 tmux -L "$SOCKET" set-option -g @resurrect-grouped-sessions off
 

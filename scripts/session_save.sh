@@ -12,12 +12,7 @@ if [ -z "$session" ]; then
 	session="$(tmux display-message -p '#{session_name}')"
 fi
 
-resurrect_dir_config="$(tmux show-option -gv @resurrect-dir 2>/dev/null || echo 'NOT_SET')"
-if [ "$resurrect_dir_config" != "NOT_SET" ]; then
-	resurrect_dir="$resurrect_dir_config"
-else
-	resurrect_dir="$HOME/.local/share/tmux/resurrect"
-fi
+resurrect_dir="$(resurrect_dir)"
 
 saved_dir="$resurrect_dir/saved"
 mkdir -p "$saved_dir"

@@ -7,11 +7,7 @@ source "$CURRENT_DIR/helpers.sh"
 
 set -euo pipefail
 
-resurrect_dir="$HOME/.local/share/tmux/resurrect"
-resurrect_dir_config="$(tmux show-option -gv @resurrect-dir 2>/dev/null || echo 'NOT_SET')"
-if [ "$resurrect_dir_config" != "NOT_SET" ]; then
-	resurrect_dir="$resurrect_dir_config"
-fi
+resurrect_dir="$(resurrect_dir)"
 
 saved_dir="$resurrect_dir/saved"
 active_sessions="$(tmux list-sessions -F '#{session_name}' 2>/dev/null || true)"

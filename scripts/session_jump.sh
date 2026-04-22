@@ -2,11 +2,7 @@
 
 set -euo pipefail
 
-saved_dir="$HOME/.local/share/tmux/resurrect/saved"
-resurrect_dir_config="$(tmux show-option -gv @resurrect-dir 2>/dev/null || echo 'NOT_SET')"
-if [ "$resurrect_dir_config" != "NOT_SET" ]; then
-	saved_dir="$resurrect_dir_config/saved"
-fi
+saved_dir="$(resurrect_dir)/saved"
 
 session_list="$(tmux list-sessions -F '#{session_name}' | while read -r s; do
 	if [ -e "$saved_dir/$s.resurrect" ]; then
