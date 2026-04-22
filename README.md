@@ -5,6 +5,7 @@
 
 > [!NOTE]
 > This is my fork of [tmux-plugins/tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect).
+> 
 > Changes in this fork:
 >
 > - session-manager for individual sessions
