@@ -50,6 +50,7 @@ Optional:
 - [restoring vim and neovim sessions](docs/restoring_vim_and_neovim_sessions.md)
 - [restoring pane contents](docs/restoring_pane_contents.md)
 - [restoring a previously saved environment](docs/restoring_previously_saved_environment.md)
+- built-in session manager scripts for save, restore, kill and jump actions
 
 Requirements / dependencies: `tmux 1.9` or higher, `bash`.
 
@@ -95,6 +96,7 @@ You should now be able to use the plugin.
   `vi vim nvim emacs man less more tail top htop irssi weechat mutt`.<br/>
   [Restoring programs doc](docs/restoring_programs.md) explains how to restore
   additional programs.
+- Grouped sessions can be toggled globally with `@resurrect-grouped-sessions`.
 - [Change a directory](docs/save_dir.md) where `tmux-resurrect` saves tmux
   environment.
 

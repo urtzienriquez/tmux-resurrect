@@ -29,6 +29,10 @@ set_default_strategies() {
 set_script_path_options() {
 	tmux set-option -gq "$save_path_option" "$CURRENT_DIR/scripts/save.sh"
 	tmux set-option -gq "$restore_path_option" "$CURRENT_DIR/scripts/restore.sh"
+	tmux set-option -gq "$session_save_path_option" "$CURRENT_DIR/scripts/session_save.sh"
+	tmux set-option -gq "$session_restore_path_option" "$CURRENT_DIR/scripts/session_restore.sh"
+	tmux set-option -gq "$session_kill_path_option" "$CURRENT_DIR/scripts/session_kill.sh"
+	tmux set-option -gq "$session_jump_path_option" "$CURRENT_DIR/scripts/session_jump.sh"
 }
 
 main() {
