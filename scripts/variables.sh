@@ -7,6 +7,12 @@ default_restore_key="C-r"
 restore_option="@resurrect-restore"
 restore_path_option="@resurrect-restore-script-path"
 
+# custom session manager scripts
+session_save_path_option="@resurrect-session-save-script-path"
+session_restore_path_option="@resurrect-session-restore-script-path"
+session_kill_path_option="@resurrect-session-kill-script-path"
+session_jump_path_option="@resurrect-session-jump-script-path"
+
 # default processes that are restored
 default_proc_list_option="@resurrect-default-processes"
 default_proc_list='vi vim view nvim emacs man less more tail top htop irssi weechat mutt'
@@ -23,6 +29,10 @@ restore_processes=""
 # Defines part of the user variable. Example usage:
 #   set -g @resurrect-strategy-vim "session"
 restore_process_strategy_option="@resurrect-strategy-"
+
+# grouped sessions
+grouped_sessions_option="@resurrect-grouped-sessions"
+default_grouped_sessions="on"
 
 inline_strategy_token="->"
 inline_strategy_arguments_token="*"

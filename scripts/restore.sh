@@ -331,6 +331,9 @@ restore_zoomed_windows() {
 }
 
 restore_grouped_sessions() {
+	if ! grouped_sessions_option_on; then
+		return
+	fi
 	while read line; do
 		if is_line_type "grouped_session" "$line"; then
 			restore_grouped_session "$line"

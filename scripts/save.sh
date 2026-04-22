@@ -239,7 +239,12 @@ save_all() {
 	local resurrect_file_path="$(resurrect_file_path)"
 	local last_resurrect_file="$(last_resurrect_file)"
 	mkdir -p "$(resurrect_dir)"
-	fetch_and_dump_grouped_sessions > "$resurrect_file_path"
+	GROUPED_SESSIONS=""
+	if grouped_sessions_option_on; then
+		fetch_and_dump_grouped_sessions > "$resurrect_file_path"
+	else
+		: > "$resurrect_file_path"
+	fi
 	dump_panes   >> "$resurrect_file_path"
 	dump_windows >> "$resurrect_file_path"
 	dump_state   >> "$resurrect_file_path"

@@ -64,6 +64,11 @@ capture_pane_contents_option_on() {
 	[ "$option" == "on" ]
 }
 
+grouped_sessions_option_on() {
+	local option="$(get_tmux_option "$grouped_sessions_option" "$default_grouped_sessions")"
+	[ "$option" == "on" ]
+}
+
 files_differ() {
 	! cmp -s "$1" "$2"
 }
