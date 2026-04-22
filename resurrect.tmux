@@ -26,6 +26,14 @@ set_default_strategies() {
 	tmux set-option -gq "${restore_process_strategy_option}mosh-client" "default_strategy"
 }
 
+default_bindings_enabled() {
+	[ "$(get_tmux_option "$enable_default_bindings_option" "$default_enable_default_bindings")" = "on" ]
+}
+
+session_manager_bindings_enabled() {
+	[ "$(get_tmux_option "$enable_session_manager_bindings_option" "$default_enable_session_manager_bindings")" = "on" ]
+}
+
 set_session_manager_bindings() {
 	local key
 
@@ -60,10 +68,14 @@ set_script_path_options() {
 }
 
 main() {
-	set_save_bindings
-	set_restore_bindings
+	if default_bindings_enabled; then
+		set_save_bindings
+		set_restore_bindings
+	fi
 	set_default_strategies
-	set_session_manager_bindings
+	if session_manager_bindings_enabled; then
+		set_session_manager_bindings
+	fi
 	set_script_path_options
 }
 main

@@ -64,23 +64,8 @@ capture_pane_contents_option_on() {
 	[ "$option" == "on" ]
 }
 
-grouped_sessions_option_on() {
-	local option="$(get_tmux_option "$grouped_sessions_option" "$default_grouped_sessions")"
-	[ "$option" == "on" ]
-}
-
 files_differ() {
 	! cmp -s "$1" "$2"
-}
-
-get_grouped_sessions() {
-	local grouped_sessions_dump="$1"
-	export GROUPED_SESSIONS="${d}$(echo "$grouped_sessions_dump" | cut -f2 -d"$d" | tr "\\n" "$d")"
-}
-
-is_session_grouped() {
-	local session_name="$1"
-	[[ "$GROUPED_SESSIONS" == *"${d}${session_name}${d}"* ]]
 }
 
 # pane content file helpers

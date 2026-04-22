@@ -96,7 +96,6 @@ You should now be able to use the plugin.
   `vi vim nvim emacs man less more tail top htop irssi weechat mutt`.<br/>
   [Restoring programs doc](docs/restoring_programs.md) explains how to restore
   additional programs.
-- Grouped sessions can be toggled globally with `@resurrect-grouped-sessions`.
 - [Change a directory](docs/save_dir.md) where `tmux-resurrect` saves tmux
   environment.
 

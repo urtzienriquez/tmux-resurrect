@@ -2,6 +2,8 @@
 default_save_key="C-s"
 save_option="@resurrect-save"
 save_path_option="@resurrect-save-script-path"
+enable_default_bindings_option="@resurrect-enable-default-bindings"
+default_enable_default_bindings="on"
 
 default_restore_key="C-r"
 restore_option="@resurrect-restore"
@@ -16,6 +18,8 @@ session_save_key_option="@resurrect-session-save"
 session_restore_key_option="@resurrect-session-restore"
 session_kill_key_option="@resurrect-session-kill"
 session_jump_key_option="@resurrect-session-jump"
+enable_session_manager_bindings_option="@resurrect-enable-session-manager-bindings"
+default_enable_session_manager_bindings="on"
 
 # default processes that are restored
 default_proc_list_option="@resurrect-default-processes"
@@ -33,10 +37,6 @@ restore_processes=""
 # Defines part of the user variable. Example usage:
 #   set -g @resurrect-strategy-vim "session"
 restore_process_strategy_option="@resurrect-strategy-"
-
-# grouped sessions
-grouped_sessions_option="@resurrect-grouped-sessions"
-default_grouped_sessions="on"
 
 inline_strategy_token="->"
 inline_strategy_arguments_token="*"

@@ -48,12 +48,10 @@ cleanup_all() {
 run_save_test() {
 	local socket="$1"
 	local resurrect_dir="$2"
-	local grouped_sessions_state="$3"
 
 	tmux -L "$socket" -f /dev/null new-session -d -s red -c /tmp
 	tmux -L "$socket" set-option -g @resurrect-dir "$resurrect_dir"
 	tmux -L "$socket" set-option -g @resurrect-capture-pane-contents off
-	tmux -L "$socket" set-option -g @resurrect-grouped-sessions "$grouped_sessions_state"
 	tmux -L "$socket" new-session -d -t red -s red-linked -c /tmp
 	tmux -L "$socket" run-shell "$PLUGIN_DIR/scripts/save.sh quiet"
 
@@ -61,15 +59,9 @@ run_save_test() {
 	local save_file
 	save_file="$(readlink -f "$resurrect_dir/last")"
 
-	if [ "$grouped_sessions_state" = "on" ]; then
-		grep -q $'^grouped_session\tred-linked\tred\t' "$save_file"
-		! grep -q $'^pane\tred-linked\t' "$save_file"
-		! grep -q $'^window\tred-linked\t' "$save_file"
-	else
-		! grep -q $'^grouped_session\t' "$save_file"
-		grep -q $'^pane\tred-linked\t' "$save_file"
-		grep -q $'^window\tred-linked\t' "$save_file"
-	fi
+	grep -q $'^grouped_session\tred-linked\tred\t' "$save_file"
+	! grep -q $'^pane\tred-linked\t' "$save_file"
+	! grep -q $'^window\tred-linked\t' "$save_file"
 
 	cleanup_socket "$socket"
 }
@@ -87,7 +79,6 @@ run_restore_test() {
 	tmux -L "$socket" -f /dev/null new-session -d -s 0 -c /tmp
 	tmux -L "$socket" set-option -g @resurrect-dir "$resurrect_dir"
 	tmux -L "$socket" set-option -g @resurrect-capture-pane-contents off
-	tmux -L "$socket" set-option -g @resurrect-grouped-sessions off
 	tmux -L "$socket" run-shell "$PLUGIN_DIR/scripts/restore.sh"
 
 	wait_for_session "$socket" red
@@ -101,8 +92,7 @@ main() {
 
 	trap cleanup_all EXIT
 
-	run_save_test "$SAVE_SOCKET" "$RESURRECT_DIR" on
-	run_save_test "$SAVE_SOCKET" "$RESURRECT_DIR" off
+	run_save_test "$SAVE_SOCKET" "$RESURRECT_DIR"
 	run_restore_test "$RESTORE_SOCKET" "$RESURRECT_DIR"
 }
 

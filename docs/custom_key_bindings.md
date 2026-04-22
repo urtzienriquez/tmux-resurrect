@@ -17,3 +17,8 @@ before loading the plugin and it will bind them for you:
     set -g @resurrect-session-restore 'l'
     set -g @resurrect-session-jump 'g'
     set -g @resurrect-session-save 'S'
+
+To disable the built-in bindings entirely:
+
+    set -g @resurrect-enable-default-bindings off
+    set -g @resurrect-enable-session-manager-bindings off

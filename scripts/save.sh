@@ -174,12 +174,11 @@ dump_grouped_sessions() {
 				alternate_window_index="$(get_alternate_window_index "$session_name")"
 				echo "grouped_session${d}${session_name}${d}${original_session}${d}:${alternate_window_index}${d}:${active_window_index}"
 			fi
-		done
+			done
 }
 
 fetch_and_dump_grouped_sessions(){
 	local grouped_sessions_dump="$(dump_grouped_sessions)"
-	get_grouped_sessions "$grouped_sessions_dump"
 	if [ -n "$grouped_sessions_dump" ]; then
 		echo "$grouped_sessions_dump"
 	fi
@@ -190,10 +189,6 @@ dump_panes() {
 	local full_command
 	dump_panes_raw |
 		while IFS=$d read line_type session_name window_number window_active window_flags pane_index pane_title dir pane_active pane_command pane_pid history_size; do
-			# not saving panes from grouped sessions
-			if is_session_grouped "$session_name"; then
-				continue
-			fi
 			full_command="$(pane_full_command $pane_pid)"
 			dir=$(echo $dir | sed 's/ /\\ /') # escape all spaces in directory path
 			echo "${line_type}${d}${session_name}${d}${window_number}${d}${window_active}${d}${window_flags}${d}${pane_index}${d}${pane_title}${d}${dir}${d}${pane_active}${d}${pane_command}${d}:${full_command}"
@@ -203,10 +198,6 @@ dump_panes() {
 dump_windows() {
 	dump_windows_raw |
 		while IFS=$d read line_type session_name window_index window_name window_active window_flags window_layout; do
-			# not saving windows from grouped sessions
-			if is_session_grouped "$session_name"; then
-				continue
-			fi
 			automatic_rename="$(tmux show-window-options -vt "${session_name}:${window_index}" automatic-rename)"
 			# If the option was unset, use ":" as a placeholder.
 			[ -z "${automatic_rename}" ] && automatic_rename=":"
@@ -239,12 +230,7 @@ save_all() {
 	local resurrect_file_path="$(resurrect_file_path)"
 	local last_resurrect_file="$(last_resurrect_file)"
 	mkdir -p "$(resurrect_dir)"
-	GROUPED_SESSIONS=""
-	if grouped_sessions_option_on; then
-		fetch_and_dump_grouped_sessions > "$resurrect_file_path"
-	else
-		: > "$resurrect_file_path"
-	fi
+	fetch_and_dump_grouped_sessions > "$resurrect_file_path"
 	dump_panes   >> "$resurrect_file_path"
 	dump_windows >> "$resurrect_file_path"
 	dump_state   >> "$resurrect_file_path"
