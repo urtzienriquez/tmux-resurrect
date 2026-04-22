@@ -10,13 +10,11 @@ To change these, add to `.tmux.conf`:
     set -g @resurrect-save 'S'
     set -g @resurrect-restore 'R'
 
-The plugin also ships session-manager helper scripts. Set these tmux options
-before loading the plugin and it will bind them for you:
+The plugin also ships session-manager helper scripts. They default to:
 
-    set -g @resurrect-session-kill 'X'
-    set -g @resurrect-session-restore 'l'
-    set -g @resurrect-session-jump 'g'
-    set -g @resurrect-session-save 'S'
+    S / l / X / g
+
+You can override them with tmux options if needed.
 
 To disable the built-in bindings entirely:
 

@@ -37,25 +37,17 @@ session_manager_bindings_enabled() {
 set_session_manager_bindings() {
 	local key
 
-	key="$(get_tmux_option "$session_save_key_option" "")"
-	if [ -n "$key" ]; then
-		tmux bind-key "$key" confirm-before -p "Save session #{session_name}? (y/n)" "run-shell 'bash $CURRENT_DIR/scripts/session_save.sh #{session_name}'"
-	fi
+	key="$(get_tmux_option "$session_save_key_option" "$default_session_save_key")"
+	tmux bind-key "$key" confirm-before -p "Save session #{session_name}? (y/n)" "run-shell 'bash $CURRENT_DIR/scripts/session_save.sh #{session_name}'"
 
-	key="$(get_tmux_option "$session_restore_key_option" "")"
-	if [ -n "$key" ]; then
-		tmux bind-key "$key" display-popup -E "bash $CURRENT_DIR/scripts/session_restore.sh"
-	fi
+	key="$(get_tmux_option "$session_restore_key_option" "$default_session_restore_key")"
+	tmux bind-key "$key" display-popup -E "bash $CURRENT_DIR/scripts/session_restore.sh"
 
-	key="$(get_tmux_option "$session_kill_key_option" "")"
-	if [ -n "$key" ]; then
-		tmux bind-key "$key" display-popup -E "bash $CURRENT_DIR/scripts/session_kill.sh"
-	fi
+	key="$(get_tmux_option "$session_kill_key_option" "$default_session_kill_key")"
+	tmux bind-key "$key" display-popup -E "bash $CURRENT_DIR/scripts/session_kill.sh"
 
-	key="$(get_tmux_option "$session_jump_key_option" "")"
-	if [ -n "$key" ]; then
-		tmux bind-key "$key" display-popup -E "bash $CURRENT_DIR/scripts/session_jump.sh"
-	fi
+	key="$(get_tmux_option "$session_jump_key_option" "$default_session_jump_key")"
+	tmux bind-key "$key" display-popup -E "bash $CURRENT_DIR/scripts/session_jump.sh"
 }
 
 set_script_path_options() {
