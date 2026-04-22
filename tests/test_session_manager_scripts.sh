@@ -49,6 +49,18 @@ tmux -L "$SOCKET" set-option -g @resurrect-dir '~/resurrect-session-manager-test
 ln -s "$RESURRECT_DIR" "$HOME/resurrect-session-manager-test"
 tmux -L "$SOCKET" set-option -g @resurrect-capture-pane-contents off
 tmux -L "$SOCKET" set-option -g @resurrect-grouped-sessions off
+tmux -L "$SOCKET" set-option -g @resurrect-session-save S
+tmux -L "$SOCKET" set-option -g @resurrect-session-restore l
+tmux -L "$SOCKET" set-option -g @resurrect-session-kill X
+tmux -L "$SOCKET" set-option -g @resurrect-session-jump g
+
+tmux -L "$SOCKET" run-shell -b "$PLUGIN_DIR/resurrect.tmux"
+sleep 0.2
+
+tmux -L "$SOCKET" list-keys -T root | grep -q "session_save.sh"
+tmux -L "$SOCKET" list-keys -T root | grep -q "session_restore.sh"
+tmux -L "$SOCKET" list-keys -T root | grep -q "session_kill.sh"
+tmux -L "$SOCKET" list-keys -T root | grep -q "session_jump.sh"
 
 bash "$PLUGIN_DIR/scripts/session_save.sh" red
 

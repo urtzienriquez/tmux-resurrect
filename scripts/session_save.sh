@@ -22,7 +22,8 @@ shopt -s nullglob
 old_files=("$resurrect_dir"/tmux_resurrect_*.txt)
 shopt -u nullglob
 
-"$CURRENT_DIR/save.sh" quiet >/dev/null 2>&1
+tmux run-shell "$CURRENT_DIR/save.sh quiet" >/dev/null 2>&1
+sleep 1
 
 if [ ! -f "$resurrect_dir/last" ] && [ ! -L "$resurrect_dir/last" ]; then
 	tmux display-message "Tmux resurrect file not found!"

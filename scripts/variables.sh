@@ -12,6 +12,10 @@ session_save_path_option="@resurrect-session-save-script-path"
 session_restore_path_option="@resurrect-session-restore-script-path"
 session_kill_path_option="@resurrect-session-kill-script-path"
 session_jump_path_option="@resurrect-session-jump-script-path"
+session_save_key_option="@resurrect-session-save"
+session_restore_key_option="@resurrect-session-restore"
+session_kill_key_option="@resurrect-session-kill"
+session_jump_key_option="@resurrect-session-jump"
 
 # default processes that are restored
 default_proc_list_option="@resurrect-default-processes"

@@ -26,6 +26,30 @@ set_default_strategies() {
 	tmux set-option -gq "${restore_process_strategy_option}mosh-client" "default_strategy"
 }
 
+set_session_manager_bindings() {
+	local key
+
+	key="$(get_tmux_option "$session_save_key_option" "")"
+	if [ -n "$key" ]; then
+		tmux bind-key "$key" confirm-before -p "Save session #{session_name}? (y/n)" "run-shell 'bash $CURRENT_DIR/scripts/session_save.sh #{session_name}'"
+	fi
+
+	key="$(get_tmux_option "$session_restore_key_option" "")"
+	if [ -n "$key" ]; then
+		tmux bind-key "$key" display-popup -E "bash $CURRENT_DIR/scripts/session_restore.sh"
+	fi
+
+	key="$(get_tmux_option "$session_kill_key_option" "")"
+	if [ -n "$key" ]; then
+		tmux bind-key "$key" display-popup -E "bash $CURRENT_DIR/scripts/session_kill.sh"
+	fi
+
+	key="$(get_tmux_option "$session_jump_key_option" "")"
+	if [ -n "$key" ]; then
+		tmux bind-key "$key" display-popup -E "bash $CURRENT_DIR/scripts/session_jump.sh"
+	fi
+}
+
 set_script_path_options() {
 	tmux set-option -gq "$save_path_option" "$CURRENT_DIR/scripts/save.sh"
 	tmux set-option -gq "$restore_path_option" "$CURRENT_DIR/scripts/restore.sh"
@@ -39,6 +63,7 @@ main() {
 	set_save_bindings
 	set_restore_bindings
 	set_default_strategies
+	set_session_manager_bindings
 	set_script_path_options
 }
 main
