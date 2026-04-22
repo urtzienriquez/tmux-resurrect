@@ -2,6 +2,25 @@
 
 [![Build Status](https://travis-ci.org/tmux-plugins/tmux-resurrect.svg?branch=master)](https://travis-ci.org/tmux-plugins/tmux-resurrect)
 
+
+> [!NOTE]
+> This is my fork of [tmux-plugins/tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect).
+> Changes in this fork:
+>
+> - session-manager for individual sessions
+>   - tmux popups and fzf to save, restore, kill, and jump between sessions
+> - separate toggles to enable/disable keybinds:
+>   - `@resurrect-enable-default-bindings on/off` to enable/disable the original `prefix + C-s` / `prefix + C-r`
+>   - `@resurrect-enable-session-manager-bindings on/off` for the session-manager bindings
+>     - session-manager bindings default to:
+>       - `prefix + S` for save
+>       - `prefix + l` for load
+>       - `prefix + X` for kill
+>       - `prefix + g` for jump
+> - neovim `session` restore strategy also restores local `Session.shada` if present
+
+---
+
 Restore `tmux` environment after system restart.
 
 Tmux is great, except when you have to restart the computer. You lose all the
