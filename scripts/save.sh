@@ -189,7 +189,8 @@ dump_panes() {
 	local full_command
 	dump_panes_raw |
 		while IFS=$d read line_type session_name window_number window_active window_flags pane_index pane_title dir pane_active pane_command pane_pid history_size; do
-			full_command="$(pane_full_command $pane_pid)"
+			# full_command="$(pane_full_command $pane_pid)"
+      full_command="$(pane_full_command "$pane_pid" | sed -E "s/(-S )([^ ]+)/\1'\2'/")"
 			dir=$(echo $dir | sed 's/ /\\ /') # escape all spaces in directory path
 			echo "${line_type}${d}${session_name}${d}${window_number}${d}${window_active}${d}${window_flags}${d}${pane_index}${d}${pane_title}${d}${dir}${d}${pane_active}${d}${pane_command}${d}:${full_command}"
 		done
