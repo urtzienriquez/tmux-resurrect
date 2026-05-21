@@ -41,13 +41,13 @@ set_session_manager_bindings() {
 	tmux bind-key "$key" confirm-before -p "Save session #{session_name}? (y/n)" "run-shell 'bash $CURRENT_DIR/scripts/session_save.sh #{session_name}'"
 
 	key="$(get_tmux_option "$session_restore_key_option" "$default_session_restore_key")"
-	tmux bind-key "$key" display-popup -E "bash $CURRENT_DIR/scripts/session_restore.sh"
+	tmux bind-key "$key" run-shell "tmux new-pane -x 40% -y 50% -X 30% -Y 25% 'bash $CURRENT_DIR/scripts/session_restore.sh; tmux kill-pane'"
 
 	key="$(get_tmux_option "$session_kill_key_option" "$default_session_kill_key")"
-	tmux bind-key "$key" display-popup -E "bash $CURRENT_DIR/scripts/session_kill.sh"
+	tmux bind-key "$key" run-shell "tmux new-pane -x 40% -y 50% -X 30% -Y 25% 'bash $CURRENT_DIR/scripts/session_kill.sh; tmux kill-pane'"
 
 	key="$(get_tmux_option "$session_jump_key_option" "$default_session_jump_key")"
-	tmux bind-key "$key" display-popup -E "bash $CURRENT_DIR/scripts/session_jump.sh"
+	tmux bind-key "$key" run-shell "tmux new-pane -x 40% -y 50% -X 30% -Y 25% 'bash $CURRENT_DIR/scripts/session_jump.sh; tmux kill-pane'"
 }
 
 set_script_path_options() {
